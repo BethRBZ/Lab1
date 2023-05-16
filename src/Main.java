@@ -1,11 +1,11 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        //оставила переделанную программу для определения частоты слов
         String filename = "ёжик.txt";
         Map<String, Integer> wordCountMap = new HashMap<>();
         try {
@@ -30,5 +30,17 @@ public class Main {
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден" + filename);
         }
+        //общее количество
+        int wordCount = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] words = line.split("\\s+");
+                wordCount += words.length;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Общее количество: " + wordCount);
     }
 }
